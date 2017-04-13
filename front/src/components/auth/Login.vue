@@ -17,7 +17,7 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <button class="button is-primary" @click.prevent="test">Login</button>
+                            <button class="button is-primary" @click.prevent="login">Login</button>
                         </p>
                     </div>
                 </div>
@@ -35,9 +35,16 @@
         },
 
         methods: {
-            test: function() {
-                this.$http.get('http://localhost:7800/api/test').then((response) => {
-                  console.log(response.data)
+            login: function() {
+                let data = {
+                    client_id: 2,
+                    client_secret: 'Ov0BtZX6uoYKwMqIUGWLW2O7efe62zTjIJ8MbRJc',
+                    grant_type: 'password',
+                    username: this.email,
+                    password: this.password
+                }
+                this.$http.post('http://localhost:7800/oauth/token', data).then((response) => {
+                    console.log(response.data)
                 })
             }
         }
