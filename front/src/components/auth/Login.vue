@@ -36,6 +36,7 @@
 
         methods: {
             login: function() {
+                let vm = this
                 let data = {
                     client_id: 2,
                     client_secret: 'Ov0BtZX6uoYKwMqIUGWLW2O7efe62zTjIJ8MbRJc',
@@ -43,8 +44,10 @@
                     username: this.email,
                     password: this.password
                 }
-                this.$http.post('http://localhost:7800/oauth/token', data).then((response) => {
-                    console.log(response.data)
+                vm.$http.post('http://localhost:7800/oauth/token', data).then((response) => {
+                    let token = response.data.access_token
+                    let expiration = response.data.expires_in + Date.now()
+                    vm.$auth.setToken(token, expiration)
                 })
             }
         }
