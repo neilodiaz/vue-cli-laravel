@@ -11,17 +11,26 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            component: Home
+            component: Home,
+            meta: {
+                forAuth: true
+            }
         },
 
         {
             path: '/login',
-            component: Login
+            component: Login,
+            meta: {
+                forVisitor: true
+            }
         },
 
         {
             path: '/register',
-            component: Registration
+            component: Registration,
+            meta: {
+                forVisitor: true
+            }
         }
     ]
 })

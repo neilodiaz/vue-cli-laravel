@@ -13,15 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
-
-Route::get('/test', function (Request $request) {
-    return response()->json([
-        'user' => [
-            'firstname' => 'John',
-            'lastname' => 'Doe'
-        ]
-    ]);
+Route::group(['middleware' => ['api']], function () {
+    Route::post('/register', 'Auth\RegisterController@register');
 });

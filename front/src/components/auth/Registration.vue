@@ -23,9 +23,23 @@
                             </p>
                         </div>
                         <div class="field">
+                            <label class="label">Confirm Password</label>
                             <p class="control">
-                                <button class="button is-primary">Register</button>
+                                <input class="input" type="password" v-model="password_confirmation" placeholder="Password">
                             </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <button class="button is-primary" @click.prevent="register">Register</button>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <div class="notification is-danger" v-show="error">
+                                <p>Registration Failed. Please try again.</p>
+                            </div>
+                            <div class="notification is-success" v-show="success">
+                                <p>Registration Success! Loggin in...</p>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -39,7 +53,57 @@
             return{
                 name: '',
                 email: '',
-                password: ''
+                password: '',
+                password_confirmation: '',
+                error: false,
+                success: false
+            }
+        },
+
+        methods: {
+            register() {
+                let vm = this
+                let data = {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    password_confirmation: this.password_confirmation
+                }
+                vm.success = false
+                vm.error = false
+                vm.$http.post('http://localhost:7800/api/register', data).then((response) => {
+                    if (response.status == 200) {
+                         this.login()
+                    } else {
+                         vm.error = true
+                    }
+                }).catch(function (error) {
+                    vm.error = true
+                });
+            },
+
+            login() {
+                let vm = this
+                let data = {
+                    client_id: 2,
+                    client_secret: 'Ov0BtZX6uoYKwMqIUGWLW2O7efe62zTjIJ8MbRJc',
+                    grant_type: 'password',
+                    username: this.email,
+                    password: this.password
+                }
+                vm.$http.post('http://localhost:7800/oauth/token', data).then((response) => {
+                    if (response.status == 200){
+                        vm.success = true
+                        let token = response.data.access_token
+                        let expiration = response.data.expires_in + Date.now()
+                        vm.$auth.setToken(token, expiration)
+                        setTimeout(function(){
+                            vm.$router.push('/');
+                        }, 1000)
+                    } else {
+                        vm.error = true
+                    }
+                });
             }
         }
     }
