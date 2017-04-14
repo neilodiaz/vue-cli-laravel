@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['api']], function () {
-    Route::post('/register', 'Auth\RegisterController@register');
+Route::post('/register', 'Auth\RegisterController@register');
+
+Route::group(['middleware' => ['auth:api']], function () {
+
 });

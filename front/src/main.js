@@ -7,8 +7,18 @@ import App from './App.vue'
 import Router from './routes.js'
 import Auth from './packages/auth/Auth.js'
 
+import HeaderComponent from './components/partials/Header.vue'
+
 Vue.use(VueAxios, axios)
 Vue.use(Auth)
+
+Vue.component('header-menu', HeaderComponent)
+
+axios.defaults.baseURL = 'http://localhost:8080'
+
+if (Vue.auth.isAuthenticated()) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.auth.getToken()
+}
 
 Router.beforeEach(
     (to, from, next) => {
