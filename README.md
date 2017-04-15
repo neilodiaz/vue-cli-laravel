@@ -8,7 +8,24 @@ This may not be perfect for I'm still learning some of the new concepts added on
 Please feel free to use and modify it depending on your project's requirements.
 
 
-Note: Update `RegistersUsers.php` file `register()` return method to:
+## Installation
+
+#### Front End
 ```
-response()->json(['msg' => 'Success! You have been registered!'], 200)
+cd front/
+npm install
+gulp
+npm run build
 ```
+Edit hard-coded URLs on `main.js`, `Login.vue` and `Registration.vue`
+
+
+
+#### Back End
+```
+cd back/
+composer update
+php artisan migrate
+php artisan passport:install
+```
+Edit hard-coded client_id and client_secret on `Login.vue` and `Registration.vue` 
