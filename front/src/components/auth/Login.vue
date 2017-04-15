@@ -17,7 +17,7 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <button class="button is-primary" @click.prevent="login">Login</button>
+                            <button class="button is-primary" @click.prevent="login"><span v-show="!submitting">Login</span><span v-show="submitting">Logging in...</span></button>
                         </p>
                     </div>
                     <div class="field">
@@ -40,7 +40,8 @@
                 email: '',
                 password: '',
                 error: false,
-                success: false
+                success: false,
+                submitting: false
             }
         },
 
@@ -56,6 +57,7 @@
                 }
                 vm.success = false
                 vm.error = false
+                vm.submitting = true
                 vm.$http.post('http://localhost:7800/oauth/token', data).then((response) => {
                     if (response.status == 200){
                         vm.success = true
@@ -68,8 +70,10 @@
                     } else {
                         vm.error = true
                     }
+                    vm.submitting = false
                 }).catch(function (error) {
                     vm.error = true
+                    vm.submitting = false
                 });
             }
         }

@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="nav-left">
                     <a class="nav-item">
-                        <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
+                        <img src="assets/images/bulma-logo.png" alt="Bulma logo">
                     </a>
                     <a class="nav-item is-tab is-hidden-mobile is-active">Home</a>
                 </div>

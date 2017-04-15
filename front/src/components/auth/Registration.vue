@@ -30,7 +30,7 @@
                         </div>
                         <div class="field">
                             <p class="control">
-                                <button class="button is-primary" @click.prevent="register">Register</button>
+                                <button class="button is-primary" @click.prevent="register"><span v-show="!submitting">Register</span><span v-show="submitting">Submitting...</span></button>
                             </p>
                         </div>
                         <div class="field">
@@ -56,7 +56,8 @@
                 password: '',
                 password_confirmation: '',
                 error: false,
-                success: false
+                success: false,
+                submitting: false
             }
         },
 
@@ -71,14 +72,17 @@
                 }
                 vm.success = false
                 vm.error = false
+                vm.submitting = true
                 vm.$http.post('http://localhost:7800/api/register', data).then((response) => {
                     if (response.status == 200) {
                          this.login()
                     } else {
                          vm.error = true
                     }
+                    vm.submitting = false
                 }).catch(function (error) {
                     vm.error = true
+                    vm.submitting = false
                 });
             },
 
