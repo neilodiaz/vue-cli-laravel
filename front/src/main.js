@@ -9,12 +9,14 @@ import Auth from './packages/auth/Auth.js'
 
 import HeaderComponent from './components/partials/Header.vue'
 
+import { APP_URL } from './config.js'
+
 Vue.use(VueAxios, axios)
 Vue.use(Auth)
 
 Vue.component('header-menu', HeaderComponent)
 
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = APP_URL
 
 if (Vue.auth.isAuthenticated()) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.auth.getToken()

@@ -34,6 +34,8 @@
     </div>
 </template>
 <script>
+    import { API_URL, CLIENT_ID, CLIENT_SECRET } from '../../config.js'
+
     export default{
         data(){
             return{
@@ -49,8 +51,8 @@
             login() {
                 let vm = this
                 let data = {
-                    client_id: 2,
-                    client_secret: 'Ov0BtZX6uoYKwMqIUGWLW2O7efe62zTjIJ8MbRJc',
+                    client_id: CLIENT_ID,
+                    client_secret: CLIENT_SECRET,
                     grant_type: 'password',
                     username: this.email,
                     password: this.password
@@ -58,7 +60,7 @@
                 vm.success = false
                 vm.error = false
                 vm.submitting = true
-                vm.$http.post('http://localhost:7800/oauth/token', data).then((response) => {
+                vm.$http.post(API_URL + '/oauth/token', data).then((response) => {
                     if (response.status == 200){
                         vm.success = true
                         let token = response.data.access_token
