@@ -17,8 +17,8 @@ npm install
 gulp
 npm run build
 ```
-Edit hard-coded URLs on `main.js`, `Login.vue` and `Registration.vue`
 
+Edit hard-coded URLs on `config.js`
 
 
 #### Back End
@@ -27,5 +27,7 @@ cd back/
 composer update
 php artisan migrate
 php artisan passport:install
+php artisan passport:client
 ```
-Edit hard-coded client_id and client_secret on `Login.vue` and `Registration.vue` 
+
+The `php artisan passport:client` will return the Client ID and Client Secret, these are the ones you will be adding on the `config.js`
